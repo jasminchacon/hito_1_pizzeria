@@ -1,12 +1,12 @@
 import Navbar from "./components/Navbar";
-import Home from "./views/Home";
 import Footer from "./components/Footer";
+import Login from "./views/Login";
 
 function App() {
   return (
     <>
       <Navbar />
-      <Home />
+      <Login />
       <Footer />
     </>
   );
