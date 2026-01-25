@@ -1,21 +1,26 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-const Home = () => {
-  const [pizzas, setPizzas] = useState([]);
-
-  useEffect(() => {
-    const getPizzas = async () => {
-      try {
-        const res = await fetch("http://localhost:5000/api/pizzas");
-        const data = await res.json();
-        setPizzas(data);
-      } catch (error) {
-        console.error("Error al cargar pizzas:", error);
-      }
-    };
-
-    getPizzas();
-  }, []);
+export default function Home() {
+  const [pizzas] = useState([
+    {
+      id: "p001",
+      name: "Pizza Margarita",
+      img: "https://images.unsplash.com/1601924638867-3ec6b3c1cba7",
+      price: 8990,
+    },
+    {
+      id: "p002",
+      name: "Pizza Pepperoni",
+      img: "https://images.unsplash.com/1601924638930-e9cbd0e59b19",
+      price: 9990,
+    },
+    {
+      id: "p003",
+      name: "Pizza Cuatro Quesos",
+      img: "https://images.unsplash.com/1601924639101-0b1d7c1b1e5d",
+      price: 10990,
+    },
+  ]);
 
   return (
     <div className="p-4">
@@ -38,6 +43,4 @@ const Home = () => {
       </div>
     </div>
   );
-};
-
-export default Home;
+}
