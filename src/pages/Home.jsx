@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { CartContext } from "../context/CartContext";
 
 export default function Home() {
+  const { addToCart } = useContext(CartContext);
+
   const [pizzas] = useState([
     {
       id: "p001",
@@ -38,6 +41,13 @@ export default function Home() {
             <h3 className="text-lg font-semibold mt-2">{pizza.name}</h3>
 
             <p className="font-bold">${pizza.price}</p>
+
+            <button
+              className="btn btn-dark mt-2 w-full"
+              onClick={() => addToCart(pizza)}
+            >
+              Añadir 🛒
+            </button>
           </div>
         ))}
       </div>

@@ -1,32 +1,14 @@
-import { useState } from "react";
-import { pizzaCart } from "../pizzas";
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
 
 const Cart = () => {
-  const [cart, setCart] = useState(pizzaCart);
-
-  const increase = (id) => {
-    setCart(
-      cart.map((pizza) =>
-        pizza.id === id ? { ...pizza, count: pizza.count + 1 } : pizza
-      )
-    );
-  };
-
-  const decrease = (id) => {
-    setCart(
-      cart
-        .map((pizza) =>
-          pizza.id === id ? { ...pizza, count: pizza.count - 1 } : pizza
-        )
-        .filter((pizza) => pizza.count > 0)
-    );
-  };
-
-  const total = cart.reduce((acc, pizza) => acc + pizza.price * pizza.count, 0);
+  const { cart, addToCart, removeFromCart, total } = useContext(CartContext);
 
   return (
     <div className="container my-5">
       <h2>🛒 Carrito</h2>
+
+      {cart.length === 0 && <p>Tu carrito está vacío 🍕</p>}
 
       {cart.map((pizza) => (
         <div
@@ -40,16 +22,16 @@ const Cart = () => {
           <div>
             <button
               className="btn btn-outline-danger btn-sm"
-              onClick={() => decrease(pizza.id)}
+              onClick={() => removeFromCart(pizza.id)}
             >
               -
             </button>
 
-            <span className="mx-2">{pizza.count}</span>
+            <span className="mx-2">{pizza.quantity}</span>
 
             <button
               className="btn btn-outline-success btn-sm"
-              onClick={() => increase(pizza.id)}
+              onClick={() => addToCart(pizza)}
             >
               +
             </button>
@@ -59,9 +41,11 @@ const Cart = () => {
 
       <hr />
 
-      <h4>Total: ${total}</h4>
+      <h4>Total: ${total.toLocaleString()}</h4>
 
-      <button className="btn btn-dark mt-2">Pagar</button>
+      <button className="btn btn-dark mt-2" disabled={cart.length === 0}>
+        Pagar
+      </button>
     </div>
   );
 };
