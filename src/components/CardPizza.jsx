@@ -1,4 +1,6 @@
-const CardPizza = ({ name, price, ingredients, img }) => {
+import { Link } from "react-router-dom";
+
+const CardPizza = ({ id, name, price, ingredients = [], img }) => {
   return (
     <div className="card h-100 text-center shadow">
       <img
@@ -15,29 +17,22 @@ const CardPizza = ({ name, price, ingredients, img }) => {
       <div className="card-body">
         <h5 className="card-title fw-bold">{name}</h5>
 
-        <p className="card-text">Ingredientes: {ingredients.join(", ")}</p>
+        {ingredients.length > 0 && (
+          <p className="card-text">
+            Ingredientes: {ingredients.join(", ")}
+          </p>
+        )}
 
-        <p className="fw-bold">Precio: ${price.toLocaleString()}</p>
+        <p className="fw-bold">
+          Precio: ${price.toLocaleString()}
+        </p>
 
         <div className="d-flex justify-content-center gap-2">
-          <button
-            className="btn"
-            style={{
-              border: "1px solid black",
-              backgroundColor: "transparent",
-              color: "black",
-            }}
-          >
+          <Link to={`/pizza/${id}`} className="btn btn-outline-dark">
             Ver más
-          </button>
+          </Link>
 
-          <button
-            className="btn"
-            style={{
-              backgroundColor: "black",
-              color: "white",
-            }}
-          >
+          <button className="btn btn-dark">
             Añadir
           </button>
         </div>

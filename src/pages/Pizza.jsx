@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 const Pizza = () => {
+  const { id } = useParams(); 
   const [pizza, setPizza] = useState(null);
 
   useEffect(() => {
     const getPizza = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/pizzas/p001");
+        const res = await fetch(
+          `http://localhost:5000/api/pizzas/${id}`
+        );
         const data = await res.json();
         setPizza(data);
       } catch (error) {
@@ -15,7 +19,7 @@ const Pizza = () => {
     };
 
     getPizza();
-  }, []);
+  }, [id]); 
 
   if (!pizza) return <p className="p-4">Cargando pizza... 🍕</p>;
 
