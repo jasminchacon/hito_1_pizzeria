@@ -1,6 +1,20 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
 
 const CardPizza = ({ id, name, price, ingredients = [], img }) => {
+  const { addToCart } = useContext(CartContext);
+
+  const handleAdd = () => {
+    addToCart({
+      id,
+      name,
+      price,
+      img,
+      ingredients,
+    });
+  };
+
   return (
     <div className="card h-100 text-center shadow">
       <img
@@ -32,7 +46,10 @@ const CardPizza = ({ id, name, price, ingredients = [], img }) => {
             Ver más
           </Link>
 
-          <button className="btn btn-dark">
+          <button
+            className="btn btn-dark"
+            onClick={handleAdd}
+          >
             Añadir
           </button>
         </div>

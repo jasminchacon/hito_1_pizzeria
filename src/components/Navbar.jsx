@@ -1,15 +1,24 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
+import { UserContext } from "../context/UserContext";
 
 const Navbar = () => {
   const { total } = useContext(CartContext);
-  const token = false;
+  const { token, logout } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
     <nav className="navbar navbar-dark bg-dark px-4">
       <div className="d-flex align-items-center gap-3">
-        <span className="navbar-brand fw-bold mb-0">🍕 Pizzería Mamma Mia</span>
+        <span className="navbar-brand fw-bold mb-0">
+          🍕 Pizzería Mamma Mia
+        </span>
 
         <Link to="/" className="btn btn-outline-light">
           🍕 Home
@@ -20,13 +29,20 @@ const Navbar = () => {
             <Link to="/profile" className="btn btn-outline-light">
               🔓 Profile
             </Link>
-            <button className="btn btn-outline-light">🔒 Logout</button>
+
+            <button
+              className="btn btn-outline-light"
+              onClick={handleLogout}
+            >
+              🔒 Logout
+            </button>
           </>
         ) : (
           <>
             <Link to="/login" className="btn btn-outline-light">
               🔐 Login
             </Link>
+
             <Link to="/register" className="btn btn-outline-light">
               🔐 Register
             </Link>
